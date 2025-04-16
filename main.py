@@ -6,7 +6,7 @@ from datetime import datetime
 
 # 👉 Reemplaza por tus valores reales
 SUPABASE_URL = "https://xapdpjzmdcuqnabhtrxf.supabase.co"
-SUPABASE_KEY = "TU_ANON_KEY"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhcGRwanptZGN1cW5hYmh0cnhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ2OTk0NjksImV4cCI6MjA2MDI3NTQ2OX0.OiKnkOH8JQcdGhTsDzwAMCqX3vNNBRpfwXLEGg2Zj_A"
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
