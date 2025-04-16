@@ -2,27 +2,78 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>AzE Esports - Datos</title>
+  <title>Players | AzE Esports</title>
 </head>
 <body>
-  <h1>📊 Datos del equipo</h1>
+  <h1>📋 Lista de jugadores</h1>
+
   <div id="tabla">Cargando datos...</div>
 
+  <h2>➕ Añadir nuevo jugador</h2>
+  <input type="text" id="puuid" placeholder="PUUID">
+  <input type="text" id="gameName" placeholder="Game Name">
+  <input type="text" id="tagLine" placeholder="Tag Line">
+  <button onclick="enviar()">Guardar</button>
+
   <script>
-    fetch("https://aze-esports.onrender.com/data")
-      .then(res => res.json())
-      .then(data => {
-        let html = "<table border='1'><tr><th>Nombre</th><th>Edad</th></tr>";
-        data.forEach(item => {
-          html += `<tr><td>${item.Nombre}</td><td>${item.Edad}</td></tr>`;
-        });
-        html += "</table>";
-        document.getElementById("tabla").innerHTML = html;
-      })
-      .catch(error => {
-        document.getElementById("tabla").innerText = "Error al cargar datos.";
-        console.error(error);
+    const API_URL = "https://aze-esports.onrender.com/data"; // <-- ajusta si cambia tu backend
+
+    function cargar() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => renderTabla(data))
+        .catch(err => console.error("Error cargando datos:", err));
+    }
+
+    function renderTabla(data) {
+      let html = "<table border='1'><tr><th>PUUID</th><th>Game Name</th><th>Tag Line</th><th>Acción</th></tr>";
+      data.forEach(player => {
+        html += `<tr>
+          <td>${player.puuid}</td>
+          <td>${player.gameName}</td>
+          <td>${player.tagLine}</td>
+          <td><button onclick="eliminar('${player.puuid}')">❌ Eliminar</button></td>
+        </tr>`;
       });
+      html += "</table>";
+      document.getElementById("tabla").innerHTML = html;
+    }
+
+    function enviar() {
+      const puuid = document.getElementById("puuid").value.trim();
+      const gameName = document.getElementById("gameName").value.trim();
+      const tagLine = document.getElementById("tagLine").value.trim();
+
+      if (!puuid || !gameName || !tagLine) {
+        alert("Completa todos los campos");
+        return;
+      }
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ puuid, gameName, tagLine })
+      })
+      .then(res => res.json())
+      .then(() => {
+        document.getElementById("puuid").value = "";
+        document.getElementById("gameName").value = "";
+        document.getElementById("tagLine").value = "";
+        cargar();
+      });
+    }
+
+    function eliminar(puuid) {
+      if (!confirm("¿Seguro que quieres eliminar este jugador?")) return;
+
+      fetch(`${API_URL}/${puuid}`, {
+        method: "DELETE"
+      })
+      .then(res => res.json())
+      .then(() => cargar());
+    }
+
+    cargar();
   </script>
 </body>
 </html>
