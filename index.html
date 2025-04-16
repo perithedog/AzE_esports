@@ -8,13 +8,14 @@
   <h1>📊 Datos desde FastAPI + pandas</h1>
   <div id="tabla"></div>
 
-  <script>
-    fetch("https://aze-esports-1.onrender.com") // reemplaza esta URL
-      .then(res => res.json())
-      .then(data => {
-        const div = document.getElementById("tabla");
-        div.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
-      });
-  </script>
+<script>
+  fetch("https://backend-pandas.onrender.com/data")
+    .then(res => res.json())
+    .then(data => {
+      const div = document.getElementById("tabla");
+      div.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+    });
+</script>
+
 </body>
 </html>
