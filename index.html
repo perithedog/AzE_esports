@@ -2,20 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Web con pandas</title>
+  <title>AzE Esports - Datos</title>
 </head>
 <body>
-  <h1>📊 Datos desde FastAPI + pandas</h1>
-  <div id="tabla"></div>
+  <h1>📊 Datos del equipo</h1>
+  <div id="tabla">Cargando datos...</div>
 
-<script>
-  fetch("https://backend-pandas.onrender.com/data")
-    .then(res => res.json())
-    .then(data => {
-      const div = document.getElementById("tabla");
-      div.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
-    });
-</script>
-
+  <script>
+    fetch("https://aze-esports.onrender.com/data")
+      .then(res => res.json())
+      .then(data => {
+        let html = "<table border='1'><tr><th>Nombre</th><th>Edad</th></tr>";
+        data.forEach(item => {
+          html += `<tr><td>${item.Nombre}</td><td>${item.Edad}</td></tr>`;
+        });
+        html += "</table>";
+        document.getElementById("tabla").innerHTML = html;
+      })
+      .catch(error => {
+        document.getElementById("tabla").innerText = "Error al cargar datos.";
+        console.error(error);
+      });
+  </script>
 </body>
 </html>
