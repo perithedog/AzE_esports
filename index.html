@@ -2,28 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Primera Página</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      color: #333;
-    }
-    p {
-      color: #666;
-    }
-    a {
-      text-decoration: none;
-      color: #007BFF;
-    }
-  </style>
+  <title>Web con pandas</title>
 </head>
 <body>
-  <h1>Proyecto Análisis Lol</h1>
-  <p>AzE_esports en mi kokoro.</p>
+  <h1>📊 Datos desde FastAPI + pandas</h1>
+  <div id="tabla"></div>
+
+  <script>
+    fetch("https://TU-URL-DE-RENDER.onrender.com/data") // reemplaza esta URL
+      .then(res => res.json())
+      .then(data => {
+        const div = document.getElementById("tabla");
+        div.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+      });
+  </script>
 </body>
 </html>
