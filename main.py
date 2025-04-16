@@ -16,7 +16,7 @@ app.add_middleware(
 @app.get("/data")
 def get_data():
     df = pd.DataFrame({
-        "Nombre": ["Ana", "Luis", "Sofía"],
-        "Edad": [23, 34, 29]
+        "Nombre": ["Pepe", "Luis", "Sofía"],
+        "Edad": [25, 34, 29]
     })
     return df.to_dict(orient="records")
